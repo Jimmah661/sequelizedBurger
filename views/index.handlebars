@@ -1,0 +1,72 @@
+<div class='holdAll'>
+    <h1>Burgers for days</h1>
+    <img src="/assets/img/Pixel-burger.png" alt="Pixel Burger">
+    <!-- This is the container to hold the actual burgers -->
+    <div class="container">
+        <div class="left">
+            <h2>Ready to eat</h2>
+
+            <ul>
+                {{#each burg}}
+                {{#unless devoured}}
+                <li>
+                    {{id}}. {{burger_name}}
+                    <button class="eatMe" data-id="{{id}}">Eat It</button>
+                </li>
+
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="right">
+            <h2>Already Eaten :(</h2>
+
+            <ul>
+                {{#each burg}}
+                {{#if devoured}}
+                <li>
+                    {{id}}. {{burger_name}}
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    <!-- This container holds the form to add new burgers -->
+    <div class="formContainer">
+        <h2>Make a new burger</h2>
+        <form id="newBurg">
+            <input id="burgFlav" type="text" name="text">
+            <input type="submit">
+        </form>
+        <p>Enter a new burger you'd like to devour and then submit for tasting</p>
+    </div>
+</div>
+
+<script>
+    $(".eatMe").on("click", function (event) {
+        event.preventDefault();
+        let id = $(this).data("id")
+        let devouredState = { devoured: true }
+
+        // Send the PUT request
+        $.ajax("/api/burgs/" + id, {
+            type: "PUT",
+            data: devouredState
+        }).then(location.reload());
+    });
+
+    $("#newBurg").on("submit", function (event) {
+        event.preventDefault();
+
+        var burger = {
+            name: $('#burgFlav').val(),
+            devoured: 0
+        };
+
+        $.ajax("/api/burgs", {
+            type: "POST",
+            data: burger
+        }).then(location.reload())
+    })
+</script>

@@ -1,0 +1,46 @@
+body {
+    background-image: url("/assets/img/cheeseburger-background.png");
+    font-family: Arial;
+}
+
+ul {
+    list-style: none
+}
+
+li, p {
+    margin-bottom: 5px;
+    font-weight: bold
+}
+
+h1, .formContainer {
+    text-align: center
+}
+
+.container {
+    display: flex;
+    flex-direction: row
+}
+
+img {
+    display: block;
+    width: 150px;
+    margin: auto
+}
+
+.left{
+    display: inline-flexbox;
+    width: 45%;
+    margin-right: 5%;
+    text-align: right
+}
+
+.right {
+    display: inline-flexbox;
+    width: 45%;
+    margin-left: 5%
+}
+
+.holdAll {
+    background-color: rgba(233, 150, 122, 0.7);
+    padding: 10px
+}
